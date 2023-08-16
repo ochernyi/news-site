@@ -15,8 +15,10 @@ class Category(models.Model):
 class News(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False)
     content = models.TextField()
-    image = models.ImageField(upload_to='news_images/')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="categories")
+    image = models.ImageField(upload_to="news_images/")
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, related_name="categories"
+    )
     author = models.ForeignKey(User, on_delete=models.PROTECT, related_name="users")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
