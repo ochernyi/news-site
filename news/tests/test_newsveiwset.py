@@ -40,7 +40,6 @@ def sample_news(**params):
         "updated_at": "2023-08-17T08:08:01.114961Z",
         "category": params,
         "author": params,
-
     }
     defaults.update(params)
     return News.objects.create(**defaults)
@@ -73,13 +72,15 @@ class AuthenticatedNewsApiTests(TestCase):
         news1 = sample_news(author=self.user, category=hot_category)
         news2 = sample_news(author=self.user, category=sport_category)
 
-        res = self.client.get(NEWS_URL, {'category': hot_category.id})
+        res = self.client.get(NEWS_URL, {"category": hot_category.id})
 
         serializer1 = NewsSerializer(news1)
         serializer2 = NewsSerializer(news2)
 
         hot_category_news = [serializer1.data] if hot_category.name == "Hot" else []
-        sport_category_news = [serializer2.data] if sport_category.name == "Sport" else []
+        sport_category_news = (
+            [serializer2.data] if sport_category.name == "Sport" else []
+        )
 
         expected_data = hot_category_news + sport_category_news
 
