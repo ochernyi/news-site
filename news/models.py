@@ -29,9 +29,9 @@ class News(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to=news_image_file_path)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="news"
+        Category, on_delete=models.CASCADE, related_name="category_news"
     )
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="news")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author_news")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
