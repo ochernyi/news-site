@@ -15,10 +15,11 @@ from .permissions import IsAuthorOrReadOnly
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+    @staticmethod
+    def perform_create(serializer):
+        serializer.save()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
