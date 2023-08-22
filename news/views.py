@@ -45,7 +45,7 @@ class NewsViewSet(viewsets.ModelViewSet):
         queryset = News.objects.all()
         category_id = self.request.query_params.get("category")
         if category_id:
-            queryset = queryset.filter(category_id=category_id)
+            queryset = queryset.filter(category_id=int(category_id))
         return queryset
 
     def perform_create(self, serializer):
